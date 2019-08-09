@@ -25,7 +25,7 @@
       "name": {
         "en": "Doorbell"
       },
-      "class": "other",
+      "class": "doorbell",
       "capabilities": [],
       "pair": [
         {
