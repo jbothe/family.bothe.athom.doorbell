@@ -1,0 +1,11 @@
+{
+  "name": "family.bothe.athom.doorbell",
+  "version": "1.0.1",
+  "main": "app.js",
+  "dependencies": {
+    "homey-rfdriver": "^3.0.4"
+  },
+  "devDependencies": {
+    "homey": "^2.3.3"
+  }
+}

@@ -1,31 +1,33 @@
 'use strict';
 
-const Homey = require('homey');
+const BUTTON_PRESSED_DATA = 3583698
 
-let doorbell = new Homey.Signal433('doorbell');
-let buttonPressedTrigger = new Homey.FlowCardTrigger('button_pressed');
+const Homey = require('homey');
+const { RFUtil } = require('homey-rfdriver');
 
 let pressed = false;
 
-doorbell.register().then(() => {
-    doorbell.on('payload', function(payload, first) {
-        console.log('received from a device:', payload, 'isRepetition:', !first);
-
-        if (first && !pressed) {
-            pressed = true;
-            setTimeout(() => {
-                pressed = false;
-            }, 3000);
-
-            buttonPressedTrigger.register().trigger().catch(this.error);
-        }
-    });
-}).catch(this.error);
-
 class DoorbellApp extends Homey.App {
-    onInit() {
-        this.log('Doorbell is running...');
-    }
+  async onInit() {
+    this.log('Doorbell is running...');
+
+    const buttonPressedTrigger = this.homey.flow.getTriggerCard('button_pressed');
+    const doorbellSignal = this.homey.rf.getSignal433('doorbell');
+
+    await doorbellSignal.enableRX();
+
+    doorbellSignal.on("payload", async function (payload, first) {
+      //console.log('Received from a device:', payload.join(''), 'isRepetition:', !first, 'data (number):', RFUtil.bitArrayToNumber(payload));
+      if (first && !pressed && RFUtil.bitArrayToNumber(payload) == BUTTON_PRESSED_DATA) {
+          pressed = true;
+          setTimeout(() => {
+              pressed = false;
+          }, 3000);
+
+          await buttonPressedTrigger.trigger();
+      }
+    });
+  }
 }
 
 module.exports = DoorbellApp;
