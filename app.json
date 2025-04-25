@@ -1,13 +1,13 @@
 {
   "id": "family.bothe.athom.doorbell",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
     "en": "Doorbell"
   },
   "description": {
-    "en": "My cheap Chinese doorbell."
+    "en": "My cheap 433MHz doorbell."
   },
   "category": [
     "security"
@@ -19,6 +19,7 @@
     "name": "John Bothe",
     "email": "jbothe@gmail.com"
   },
+  "source": "https://github.com/jbothe/family.bothe.athom.doorbell",
   "drivers": [
     {
       "id": "doorbell",
@@ -56,18 +57,18 @@
     "433": {
       "doorbell": {
         "sof": [
-          270,
-          8800
+          280,
+          9000
         ],
         "eof": [],
         "words": [
           [
-            250,
+            275,
             900
           ],
           [
-            830,
-            320
+            880,
+            310
           ]
         ],
         "interval": 5,

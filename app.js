@@ -9,7 +9,7 @@ let pressed = false;
 
 doorbell.register().then(() => {
     doorbell.on('payload', function(payload, first) {
-        // console.log('received from a device:', payload, 'isRepetition:', !first);
+        console.log('received from a device:', payload, 'isRepetition:', !first);
 
         if (first && !pressed) {
             pressed = true;
